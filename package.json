@@ -4,9 +4,22 @@
   "description": "Blog application backend with CMS",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "Akash Rajpurohit <akash009.dev@gmail.com> (https://akashrajpurohit.cf/)",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "cors": "2.8.5",
+    "express": "4.17.1",
+    "helmet": "3.18.0",
+    "jsonwebtoken": "8.5.1",
+    "mongoose": "5.5.12",
+    "morgan": "1.9.1",
+    "validator": "11.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "1.19.1"
+  }
 }
