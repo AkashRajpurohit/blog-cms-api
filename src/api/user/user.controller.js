@@ -6,14 +6,23 @@ const errorResponse = require('../../utils/errorResponse')
 
 const constants = require('../../utils/constants')
 
+const registerValidator = require('../../helpers/validations/registerValidator')
+
 /*
  * ROUTE  - /api/v1/user/register
  * METHOD - POST
  * ACCESS - Public
  * DESC   - Register a new user
  */
-const register = async (req, res, next) => {
-  // TODO: Add server side validations on input fields
+const register = async (req, res) => {
+  const { errors, isValid } = registerValidator(req.body)
+
+  if (!isValid) {
+    return res
+      .status(400)
+      .json(errorResponse(constants.VALIDATION_ERROR, errors))
+  }
+
   const { username, email, password } = req.body
 
   try {
