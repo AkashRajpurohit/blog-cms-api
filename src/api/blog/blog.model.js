@@ -17,10 +17,10 @@ const BlogSchema = new Schema(
     },
     published: {
       type: Boolean,
-      required: true
-    }
+      required: true,
+    },
   },
   { timestamps: true }
 )
 
-module.exports = User = mongoose.model('users', BlogSchema)
+module.exports = Blog = mongoose.model('blogs', BlogSchema)
