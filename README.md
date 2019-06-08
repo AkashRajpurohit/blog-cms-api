@@ -6,7 +6,7 @@
 #### Build a database-driven (persistent) blog themed application, including a (small) Content-Management System (CMS) for administrators to manage it.
 
 * Blog
-* [ ] Securely register and log in users => Password hashing, session management, authorization and authentication
+* [x] Securely register and log in users => Password hashing, session management, authorization and authentication
 * [ ] Allow authorized users to:
   * [ ] Create new blog posts - a post should include
     * [ ] a title
@@ -36,3 +36,7 @@
   * [ ] Create user accounts
   * [ ] Grant users administrator privileges
   * [ ] (Optional): Statistics of registrations and/or posts
+
+
+## Stretch - Plan to implement task apart from given
+* [ ] Use access token and refresh token for authentication and authorization
