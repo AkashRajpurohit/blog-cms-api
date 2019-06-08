@@ -15,7 +15,7 @@
     * [x] is published
     * [ ] (Optional): a post picture
   * [x] Edit their own posts 
-  * [ ] Delete their own posts
+  * [ ] Delete their own posts (Soft Delete)
   * [ ] View their own profile information, which should include
     * [ ] the username
     * [ ] the E-Mail
