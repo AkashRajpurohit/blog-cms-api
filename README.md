@@ -7,20 +7,20 @@
 
 * Blog
 * [ ] Securely register and log in users => Password hashing, session management, authorization and authentication
-  * [ ] Allow authorized users to:
-    * [ ] Create new blog posts - a post should include
-      * [ ] a title
-      * [ ] an author
-      * [ ] some content
-      * [ ] the date of publication
-      * [ ] (Optional): a post picture
-    * [ ] Edit and delete their own posts
-    * [ ] View their own profile information, which should include
-      * [ ] the username
-      * [ ] the E-Mail
-      * [ ] (Optional): a biography
-      * [ ] (Optional): a profile picture
-      * [ ] All of their posts
+* [ ] Allow authorized users to:
+  * [ ] Create new blog posts - a post should include
+    * [ ] a title
+    * [ ] an author
+    * [ ] some content
+    * [ ] the date of publication
+    * [ ] (Optional): a post picture
+  * [ ] Edit and delete their own posts
+  * [ ] View their own profile information, which should include
+    * [ ] the username
+    * [ ] the E-Mail
+    * [ ] (Optional): a biography
+    * [ ] (Optional): a profile picture
+    * [ ] All of their posts
     
 * Get access to the CMS
   * [ ] for administrators only -> differentiate between normal users and admins
