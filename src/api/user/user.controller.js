@@ -7,6 +7,7 @@ const errorResponse = require('../../utils/errorResponse')
 const constants = require('../../utils/constants')
 
 const registerValidator = require('../../helpers/validations/registerValidator')
+const loginValidator = require('../../helpers/validations/loginValidator')
 
 /*
  * ROUTE  - /api/v1/user/register
@@ -65,6 +66,14 @@ const register = async (req, res) => {
  * DESC   - Login a user and return a JWT token
  */
 const login = async (req, res) => {
+  const { errors, isValid } = loginValidator(req.body)
+
+  if (!isValid) {
+    return res
+      .status(400)
+      .json(errorResponse(constants.VALIDATION_ERROR, errors))
+  }
+
   const { usernameOrEmail, password } = req.body
 
   try {

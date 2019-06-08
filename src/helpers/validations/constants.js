@@ -14,4 +14,6 @@ module.exports = Object.freeze({
   CONFIRM_PASSWORD_REQUIRED: 'Confirm Password field is required',
 
   PASSWORD_MISMATCH_ERROR: 'Passwords does not match',
+
+  REQUIRED_FIELD: 'This field cannot be empty',
 })
