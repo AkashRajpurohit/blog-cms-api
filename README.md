@@ -8,13 +8,14 @@
 * Blog
 * [x] Securely register and log in users => Password hashing, session management, authorization and authentication
 * [ ] Allow authorized users to:
-  * [ ] Create new blog posts - a post should include
-    * [ ] a title
-    * [ ] an author
-    * [ ] some content
-    * [ ] the date of publication
+  * [x] Create new blog posts - a post should include
+    * [x] a title
+    * [x] an author
+    * [x] some content
+    * [x] is published
     * [ ] (Optional): a post picture
-  * [ ] Edit and delete their own posts
+  * [x] Edit their own posts 
+  * [ ] Delete their own posts
   * [ ] View their own profile information, which should include
     * [ ] the username
     * [ ] the E-Mail

@@ -16,4 +16,6 @@ module.exports = Object.freeze({
   SERVER_ERROR: 'Internal Server Error',
 
   VALIDATION_ERROR: 'Fields cannot be validated',
+
+  ERROR_404: "Oops! Looks like you are trying to find that doesn't exist",
 })
