@@ -123,9 +123,32 @@ const getBlogs = async (req, res) => {
   }
 }
 
+/*
+ * ROUTE  - /api/v1/blog/all
+ * METHOD - GET
+ * ACCESS - Public
+ * BODY   - NONE
+ * DESC   - Fetch all published and active blogs
+ */
+const getAllBlogs = async (req, res) => {
+  try {
+    const allBlogs = await Blog.find({ active: true, published: true })
+
+    if (!allBlogs) {
+      return res.status(404).json(errorResponse(constants.ERROR_404))
+    }
+
+    res.json(successResponse(constants.BASIC_MESSAGE, allBlogs))
+  } catch (e) {
+    console.log('Error in Fetching All Blogs : ', e)
+    res.status(500).json(errorResponse(constants.SERVER_ERROR))
+  }
+}
+
 module.exports = {
   addBlog,
   editBlog,
   deleteBlog,
   getBlogs,
+  getAllBlogs,
 }

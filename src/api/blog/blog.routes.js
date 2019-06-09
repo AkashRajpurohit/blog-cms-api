@@ -1,9 +1,17 @@
 const express = require('express')
 
 const isAuth = require('../../utils/isAuthenticated')
-const { addBlog, editBlog, deleteBlog, getBlogs } = require('./blog.controller')
+const {
+  addBlog,
+  editBlog,
+  deleteBlog,
+  getBlogs,
+  getAllBlogs,
+} = require('./blog.controller')
 
 const router = express.Router()
+
+router.get('/all', getAllBlogs)
 
 router.use(isAuth)
 

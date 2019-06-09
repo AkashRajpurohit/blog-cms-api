@@ -27,7 +27,7 @@
   * [ ] for administrators only -> differentiate between normal users and admins
 
 * Additionally, allow everyone to:
-  * [ ] View all published blog posts
+  * [x] View all published blog posts
 
 * CMS:
   * [ ] Allow administrators only!
