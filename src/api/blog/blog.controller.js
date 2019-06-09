@@ -77,7 +77,6 @@ const editBlog = async (req, res) => {
 const deleteBlog = async (req, res) => {
   const { blog_id } = req.params
   try {
-
     let blog = await Blog.findById(blog_id)
 
     if (!blog) {
@@ -93,9 +92,33 @@ const deleteBlog = async (req, res) => {
     const savedBlog = await blog.save()
 
     res.json(successResponse(constants.BASIC_MESSAGE, savedBlog))
-    
   } catch (e) {
     console.log('Error in Editing Blog: ', e)
+    res.status(500).json(errorResponse(constants.SERVER_ERROR))
+  }
+}
+
+/*
+ * ROUTE  - /api/v1/blog/
+ * METHOD - GET
+ * ACCESS - Private
+ * BODY   - NONE
+ * DESC   - Fetch all blogs for a authorized user -> only his blogs
+ */
+const getBlogs = async (req, res) => {
+  try {
+    const blogs = await Blog.find({
+      author: req.userId.toString(),
+      active: true,
+    })
+
+    if (!blogs) {
+      return res.status(404).json(errorResponse(constants.ERROR_404))
+    }
+
+    res.json(successResponse(constants.BASIC_MESSAGE, blogs))
+  } catch (e) {
+    console.log('Error in Fetching Blogs for single user: ', e)
     res.status(500).json(errorResponse(constants.SERVER_ERROR))
   }
 }
@@ -104,4 +127,5 @@ module.exports = {
   addBlog,
   editBlog,
   deleteBlog,
+  getBlogs,
 }

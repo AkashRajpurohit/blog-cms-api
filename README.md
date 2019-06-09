@@ -21,7 +21,7 @@
     * [ ] the E-Mail
     * [ ] (Optional): a biography
     * [ ] (Optional): a profile picture
-    * [ ] All of their posts
+    * [x] All of their posts
     
 * Get access to the CMS
   * [ ] for administrators only -> differentiate between normal users and admins
@@ -42,3 +42,6 @@
 ## Stretch - Plan to implement task apart from given
 * [ ] Use access token and refresh token for authentication and authorization
 * [ ] Allow user to hard delete any data (eg. Blog post)
+* [ ] While registering users create a confirmation link and send it to the user by email to verify the email address
+  * [ ] Generate a token which expires after 24 hours
+  * [ ] Redis????
