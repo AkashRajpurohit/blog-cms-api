@@ -132,7 +132,10 @@ const getBlogs = async (req, res) => {
  */
 const getAllBlogs = async (req, res) => {
   try {
-    const allBlogs = await Blog.find({ active: true, published: true })
+    const allBlogs = await Blog.find({
+      active: true,
+      published: true,
+    }).populate('author', ['username', 'email'])
 
     if (!allBlogs) {
       return res.status(404).json(errorResponse(constants.ERROR_404))
