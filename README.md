@@ -31,7 +31,7 @@
 
 * CMS:
   * [x] Allow administrators only!
-  * [ ] Get an overview of all registered users, ability to view their information which equals the information the user should be able to see about him/herself
+  * [x] Get an overview of all registered users, ability to view their information which equals the information the user should be able to see about him/herself
   * [ ] Edit and delete any post
   * [ ] Delete user accounts
   * [ ] Create user accounts

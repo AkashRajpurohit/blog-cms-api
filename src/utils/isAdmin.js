@@ -11,9 +11,9 @@ module.exports = async (req, res, next) => {
   if (bearerToken) {
     const token = bearerToken.split(' ')[1]
     try {
-      const { userId, usertype } = await jwt.verify(token, secret)
+      const { userId, userType } = await jwt.verify(token, secret)
 
-      if (usertype !== 'admin') {
+      if (userType !== 'admin') {
         return res.status(401).json(errorResponse(constants.UNAUTHORIZED))
       }
 
