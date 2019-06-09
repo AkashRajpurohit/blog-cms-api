@@ -106,7 +106,35 @@ const login = async (req, res) => {
   }
 }
 
+/*
+ * ROUTE  - /api/v1/user/
+ * METHOD - GET
+ * ACCESS - Private
+ * BODY   - None
+ * DESC   - View all details of the user like email, username
+ */
+const getDetails = async (req, res) => {
+  try {
+    const user = await User.findById(req.userId)
+
+    if (!user) {
+      return res.status(401).json(errorResponse(constants.UNAUTHORIZED))
+    }
+
+    const userDetails = {
+      username: user.username,
+      email: user.email,
+    }
+
+    res.json(successResponse(constants.BASIC_MESSAGE, userDetails))
+  } catch (e) {
+    console.log('Error in fetching details: ', e)
+    res.status(500).json(errorResponse(constants.SERVER_ERROR))
+  }
+}
+
 module.exports = {
   register,
   login,
+  getDetails,
 }
