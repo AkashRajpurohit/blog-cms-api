@@ -15,7 +15,7 @@
     * [x] is published
     * [ ] (Optional): a post picture
   * [x] Edit their own posts 
-  * [ ] Delete their own posts (Soft Delete)
+  * [x] Delete their own posts (Soft Delete)
   * [ ] View their own profile information, which should include
     * [ ] the username
     * [ ] the E-Mail
@@ -41,3 +41,4 @@
 
 ## Stretch - Plan to implement task apart from given
 * [ ] Use access token and refresh token for authentication and authorization
+* [ ] Allow user to hard delete any data (eg. Blog post)
