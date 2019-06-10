@@ -36,7 +36,7 @@ const addBlog = async (req, res) => {
  * ROUTE  - /api/v1/blog/:blog_id
  * METHOD - PATCH
  * ACCESS - Private { By the user who created this blog }
- * BODY   - { title, content, published, id }
+ * BODY   - { title, content, published }
  * DESC   - Edit a blog
  */
 const editBlog = async (req, res) => {
