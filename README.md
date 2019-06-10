@@ -45,3 +45,6 @@
 * [ ] While registering users create a confirmation link and send it to the user by email to verify the email address
   * [ ] Generate a token which expires after 24 hours
   * [ ] Redis????
+
+## Read the API Docs
+[Documentation](https://documenter.getpostman.com/view/4346639/S1TZzbts)
