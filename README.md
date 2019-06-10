@@ -34,7 +34,7 @@
   * [x] Get an overview of all registered users, ability to view their information which equals the information the user should be able to see about him/herself
   * [x] Edit and delete any post
   * [x] Delete user accounts
-  * [ ] Create user accounts
+  * [x] Create user accounts
   * [ ] Grant users administrator privileges
   * [ ] (Optional): Statistics of registrations and/or posts
 

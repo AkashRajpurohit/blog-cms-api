@@ -1,8 +1,12 @@
+const bcrypt = require('bcryptjs')
+
 const User = require('../user/user.model')
 const Blog = require('../blog/blog.model')
 
 const successResponse = require('../../utils/successResponse')
 const errorResponse = require('../../utils/errorResponse')
+
+const registerValidator = require('../../helpers/validations/registerValidator')
 
 const constants = require('../../utils/constants')
 
@@ -60,6 +64,56 @@ const deleteUser = async (req, res) => {
     res.json(successResponse(constants.BASIC_MESSAGE, user))
   } catch (e) {
     console.log('Error in deleting user by admin: ', e)
+    res.status(500).json(errorResponse(constants.SERVER_ERROR))
+  }
+}
+
+/*
+ * ROUTE  - /api/v1/admin/user/
+ * METHOD - POST
+ * ACCESS - Private
+ * BODY   - { username, email, password, password2, is_admin }
+ * DESC   - Create a new user either with admin privileges or normal user
+ */
+const createUser = async (req, res) => {
+  const { errors, isValid } = registerValidator(req.body)
+
+  if (!isValid) {
+    return res
+      .status(400)
+      .json(errorResponse(constants.VALIDATION_ERROR, errors))
+  }
+
+  const { username, email, password, is_admin } = req.body
+
+  try {
+    const emailExists = await User.findOne({ email })
+
+    if (emailExists) {
+      return res.status(400).json(errorResponse(constants.EMAIL_ALREADY_EXISTS))
+    }
+
+    const usernameTaken = await User.findOne({ username })
+
+    if (usernameTaken) {
+      return res.status(400).json(errorResponse(constants.USERNAME_EXISTS))
+    }
+
+    // All ok - Hash password and save
+    const hashedPassword = await bcrypt.hash(password, 10)
+
+    const newUser = new User({
+      usertype: is_admin === true ? 'admin' : 'user',
+      username,
+      email,
+      password: hashedPassword,
+    })
+
+    await newUser.save()
+
+    return res.json(successResponse(constants.BASIC_MESSAGE))
+  } catch (e) {
+    console.log('Error in creating new user by admin: ', e)
     res.status(500).json(errorResponse(constants.SERVER_ERROR))
   }
 }
@@ -126,6 +180,7 @@ const deleteBlog = async (req, res) => {
 module.exports = {
   getAllUsers,
   deleteUser,
+  createUser,
   editBlog,
   deleteBlog,
 }
