@@ -119,6 +119,34 @@ const createUser = async (req, res) => {
 }
 
 /*
+ * ROUTE  - /api/v1/admin/user/:user_id
+ * METHOD - PATCH
+ * ACCESS - Private
+ * BODY   - None
+ * DESC   - Change usertype from user to admin
+ */
+const changeUserToAdmin = async (req, res) => {
+  const { user_id } = req.params
+  try {
+    const user = await User.findById(user_id)
+
+    if (!user) {
+      return res.status(404).json(errorResponse(constants.ERROR_404))
+    }
+
+    user.usertype = 'admin'
+
+    await user.save()
+
+    res.json(successResponse(constants.BASIC_MESSAGE))
+    
+  } catch (e) {
+    console.log('Error in changing user to admin: ', e)
+    res.status(500).json(errorResponse(constants.SERVER_ERROR))
+  }
+}
+
+/*
  * ROUTE  - /api/v1/admin/blog/:blog_id
  * METHOD - PATCH
  * ACCESS - Private
@@ -181,6 +209,7 @@ module.exports = {
   getAllUsers,
   deleteUser,
   createUser,
+  changeUserToAdmin,
   editBlog,
   deleteBlog,
 }

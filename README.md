@@ -35,7 +35,7 @@
   * [x] Edit and delete any post
   * [x] Delete user accounts
   * [x] Create user accounts
-  * [ ] Grant users administrator privileges
+  * [x] Grant users administrator privileges
   * [ ] (Optional): Statistics of registrations and/or posts
 
 
