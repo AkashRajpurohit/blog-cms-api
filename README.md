@@ -33,7 +33,7 @@
   * [x] Allow administrators only!
   * [x] Get an overview of all registered users, ability to view their information which equals the information the user should be able to see about him/herself
   * [x] Edit and delete any post
-  * [ ] Delete user accounts
+  * [x] Delete user accounts
   * [ ] Create user accounts
   * [ ] Grant users administrator privileges
   * [ ] (Optional): Statistics of registrations and/or posts

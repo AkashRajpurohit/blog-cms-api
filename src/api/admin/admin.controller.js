@@ -1,4 +1,5 @@
 const User = require('../user/user.model')
+const Blog = require('../blog/blog.model')
 
 const successResponse = require('../../utils/successResponse')
 const errorResponse = require('../../utils/errorResponse')
@@ -26,6 +27,39 @@ const getAllUsers = async (req, res) => {
     res.json(successResponse(constants.BASIC_MESSAGE, users))
   } catch (e) {
     console.log('Error in fetching details by admin: ', e)
+    res.status(500).json(errorResponse(constants.SERVER_ERROR))
+  }
+}
+
+/*
+ * ROUTE  - /api/v1/admin/user/:user_id
+ * METHOD - DELETE
+ * ACCESS - Private
+ * BODY   - NONE
+ * DESC   - Delete a user account -> Allow admin to either keep this users blog or delete them as well by sending a ``` blogs ``` key in body with boolean value
+ */
+const deleteUser = async (req, res) => {
+  const { user_id } = req.params
+  try {
+    const user = await User.findByIdAndDelete(user_id)
+
+    if (!user) {
+      return res.status(404).json(errorResponse(constants.ERROR_404))
+    }
+
+    if (req.body.blogs) {
+      const removedBlogs = await Blog.find({ author: user_id.toString() })
+      const promises = []
+      removedBlogs.map(blog => {
+        const promise = Blog.findOneAndDelete({ _id: blog._id.toString() })
+        promises.push(promise)
+      })
+      await Promise.all(promises)
+    }
+
+    res.json(successResponse(constants.BASIC_MESSAGE, user))
+  } catch (e) {
+    console.log('Error in deleting user by admin: ', e)
     res.status(500).json(errorResponse(constants.SERVER_ERROR))
   }
 }
@@ -91,6 +125,7 @@ const deleteBlog = async (req, res) => {
 
 module.exports = {
   getAllUsers,
+  deleteUser,
   editBlog,
   deleteBlog,
 }
