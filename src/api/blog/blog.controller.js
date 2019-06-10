@@ -1,4 +1,5 @@
 const Blog = require('./blog.model')
+const User = require('../user/user.model')
 
 const successResponse = require('../../utils/successResponse')
 const errorResponse = require('../../utils/errorResponse')
@@ -16,6 +17,12 @@ const addBlog = async (req, res) => {
   const { title, content, published } = req.body
 
   try {
+    const userExists = await User.findById(req.userId)
+
+    if (!userExists) {
+      return res.status(400).json(errorResponse(constants.UNAUTHORIZED))
+    }
+
     const blog = new Blog({
       author: req.userId,
       title,
@@ -44,6 +51,12 @@ const editBlog = async (req, res) => {
   const { blog_id } = req.params
 
   try {
+    const userExists = await User.findById(req.userId)
+
+    if (!userExists) {
+      return res.status(400).json(errorResponse(constants.UNAUTHORIZED))
+    }
+
     let blog = await Blog.findById(blog_id)
 
     if (!blog) {
@@ -77,6 +90,12 @@ const editBlog = async (req, res) => {
 const deleteBlog = async (req, res) => {
   const { blog_id } = req.params
   try {
+    const userExists = await User.findById(req.userId)
+
+    if (!userExists) {
+      return res.status(400).json(errorResponse(constants.UNAUTHORIZED))
+    }
+
     let blog = await Blog.findById(blog_id)
 
     if (!blog) {
@@ -107,6 +126,12 @@ const deleteBlog = async (req, res) => {
  */
 const getBlogs = async (req, res) => {
   try {
+    const userExists = await User.findById(req.userId)
+
+    if (!userExists) {
+      return res.status(400).json(errorResponse(constants.UNAUTHORIZED))
+    }
+
     const blogs = await Blog.find({
       author: req.userId.toString(),
       active: true,
