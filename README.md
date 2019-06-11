@@ -42,9 +42,10 @@
 ## Stretch - Plan to implement task apart from given
 * [ ] Use access token and refresh token for authentication and authorization
 * [ ] Allow user to hard delete any data (eg. Blog post)
-* [ ] While registering users create a confirmation link and send it to the user by email to verify the email address
-  * [ ] Generate a token which expires after 24 hours
-  * [ ] Redis????
+* [ ] Likes and comments on blog post
 
 ## Read the API Docs
 [Documentation](https://documenter.getpostman.com/view/4346639/S1TZzbts)
+
+## Deployed URL
+[blog-cms-api.now.sh](https://blog-cms-api.now.sh/)
