@@ -61,7 +61,7 @@ const deleteUser = async (req, res) => {
       await Promise.all(promises)
     }
 
-    res.json(successResponse(constants.BASIC_MESSAGE, user))
+    res.json(successResponse(constants.BASIC_MESSAGE))
   } catch (e) {
     console.log('Error in deleting user by admin: ', e)
     res.status(500).json(errorResponse(constants.SERVER_ERROR))
@@ -139,7 +139,6 @@ const changeUserToAdmin = async (req, res) => {
     await user.save()
 
     res.json(successResponse(constants.BASIC_MESSAGE))
-    
   } catch (e) {
     console.log('Error in changing user to admin: ', e)
     res.status(500).json(errorResponse(constants.SERVER_ERROR))
