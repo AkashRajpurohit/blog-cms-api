@@ -9,7 +9,10 @@ const constants = require('../../utils/constants')
 const registerValidator = require('../../helpers/validations/registerValidator')
 const loginValidator = require('../../helpers/validations/loginValidator')
 
-const generateToken = require('../../utils/generateToken')
+const {
+  generateAccessToken,
+  generateRefreshToken,
+} = require('../../utils/generateToken')
 
 /*
  * ROUTE  - /api/v1/user/register
@@ -94,12 +97,20 @@ const login = async (req, res) => {
     }
 
     // All ok
-    const token = await generateToken({
+    const accessToken = await generateAccessToken({
       userId: user.id,
       userType: user.usertype,
     })
 
-    res.json(successResponse(constants.BASIC_MESSAGE, { token }))
+    const refreshToken = await generateRefreshToken({
+      userId: user.id,
+      userType: user.usertype,
+      count: user.count,
+    })
+
+    res.json(
+      successResponse(constants.BASIC_MESSAGE, { accessToken, refreshToken })
+    )
   } catch (e) {
     console.log('Error in Login: ', e)
     res.status(500).json(errorResponse(constants.SERVER_ERROR))

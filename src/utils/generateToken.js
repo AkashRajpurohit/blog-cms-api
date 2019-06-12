@@ -1,11 +1,21 @@
 const jwt = require('jsonwebtoken')
 
-const { secret } = require('../config')
+const { accessTokenSecret, refreshTokenSecret } = require('../config')
 
-module.exports = async payload => {
-  const token = await jwt.sign(payload, secret, {
-    expiresIn: '7 days',
+const generateAccessToken = async payload => {
+  const token = await jwt.sign(payload, accessTokenSecret, {
+    expiresIn: '30min',
   })
-  const bearer = 'Bearer ' + token
-  return bearer
+  return token
+}
+
+const generateRefreshToken = async payload => {
+  const token = await jwt.sign(payload, refreshTokenSecret, {
+    expiresIn: '24 days',
+  })
+  return token
+}
+module.exports = {
+  generateAccessToken,
+  generateRefreshToken,
 }
