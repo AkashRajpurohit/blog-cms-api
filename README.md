@@ -48,4 +48,4 @@
 [Documentation](https://documenter.getpostman.com/view/4346639/S1TZzbts)
 
 ## Deployed URL
-[blog-cms-api.now.sh](https://blog-cms-api.now.sh/)
+[blog-cms-api.herokuapp.com](https://blog-cms-api.herokuapp.com/)
