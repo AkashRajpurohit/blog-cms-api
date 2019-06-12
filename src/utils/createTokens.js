@@ -4,7 +4,7 @@ const { accessTokenSecret, refreshTokenSecret } = require('../config')
 
 module.exports = user => {
   const accessToken = sign(
-    { userId: user.id, usertype: user.usertype },
+    { userId: user.id, userType: user.usertype },
     accessTokenSecret,
     {
       expiresIn: '30min',

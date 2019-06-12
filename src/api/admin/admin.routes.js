@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
+const isAuth = require('../../utils/isAuthenticated')
 const isAdmin = require('../../utils/isAdmin')
 
 const {
@@ -12,6 +13,7 @@ const {
   deleteBlog,
 } = require('./admin.controller')
 
+router.use(isAuth)
 router.use(isAdmin)
 
 router.get('/get-users', getAllUsers)

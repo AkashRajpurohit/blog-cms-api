@@ -13,11 +13,11 @@ module.exports = async (req, res, next) => {
   const refreshToken = req.cookies['refresh-token']
   if (accessToken) {
     try {
-      const { userId } = await verify(accessToken, accessTokenSecret)
+      const { userId, userType } = await verify(accessToken, accessTokenSecret)
 
       req.userId = userId
+      req.userType = userType
       // valid accessToken. Allow to go to next middleware
-      console.log('Done')
       return next()
     } catch {}
     // if we reach here means access token is expired
@@ -48,7 +48,9 @@ module.exports = async (req, res, next) => {
 
     res.cookie('access-token', tokens.accessToken)
     res.cookie('refresh-token', tokens.refreshToken)
+
     req.userId = user.id
+    req.userType = user.usertype
 
     next()
   } else {
