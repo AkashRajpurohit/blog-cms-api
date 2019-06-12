@@ -40,7 +40,7 @@
 
 
 ## Stretch - Plan to implement task apart from given
-* [ ] Use access token and refresh token for authentication and authorization
+* [x] Use access token and refresh token for authentication and authorization -> super fun while implementing this 😊
 * [ ] Allow user to hard delete any data (eg. Blog post)
 * [ ] Likes and comments on blog post
 
