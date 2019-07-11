@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs')
+const crypto = require('crypto')
 const User = require('./user.model')
 
 const successResponse = require('../../utils/successResponse')
@@ -10,6 +11,9 @@ const registerValidator = require('../../helpers/validations/registerValidator')
 const loginValidator = require('../../helpers/validations/loginValidator')
 
 const createTokens = require('../../utils/createTokens')
+
+const createForgotPasswordUrl = require('../../utils/createForgotPasswordUrl')
+const sendForgotPasswordEmail = require('../../utils/sendForgotPasswordEmail')
 
 /*
  * ROUTE  - /api/v1/user/register
@@ -164,9 +168,16 @@ const forgotPassword = async (req, res) => {
     // Increase the user count to invalidate all exisiting tokens
     user.count = user.count + 1
 
-    await user.save()
+    const token = crypto.randomBytes(20).toString('hex')
 
-    // TODO: Send Email With Token
+    // Update token for user
+    user.token = token
+
+    const url = createForgotPasswordUrl(token)
+
+    sendForgotPasswordEmail(user.username, user.email, url)
+
+    await user.save()
 
     res.json(successResponse(constants.BASIC_MESSAGE))
     

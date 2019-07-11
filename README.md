@@ -43,7 +43,8 @@
 * [x] Use access token and refresh token for authentication and authorization -> super fun while implementing this 😊
 * [x] User Forgot Password
   * [x] Lock user account
-  * [ ] Send email with token
+  * [x] Send email with token
+  ![Forgot Password Email](./assets/forgot-password-email.jpeg)
 * [ ] Allow user to hard delete any data (eg. Blog post)
 * [ ] Likes and comments on blog post
 

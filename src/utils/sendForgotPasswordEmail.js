@@ -1,7 +1,9 @@
 const nodemailer = require("nodemailer");
 const smtpTransport = require("nodemailer-smtp-transport");
 
-exports.sendEmail = function(name, email, url) {
+const { gmailEmail, gmailPassword } = require('../config')
+
+const sendForgotPasswordEmail = (name, email, url) => {
   const output = `
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -180,7 +182,7 @@ exports.sendEmail = function(name, email, url) {
                 <tr>
                   <td class="content-cell">
                     <h1>Greeting ${name}</h1>
-                    <p>Looks like forgot your password and wish to change it. Click the button below to change the password</p>
+                    <p>Looks like you forgot your password and wish to change it. Click the button below to change the password. If it was not you then ignore this message</p>
                     <!-- Action -->
                     <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0">
                       <tr>
@@ -221,8 +223,8 @@ exports.sendEmail = function(name, email, url) {
       service: "gmail",
       host: "smtp.gmail.com",
       auth: {
-        user: process.env.EMAIL,
-        pass: process.env.PASSWORD
+        user: gmailEmail,
+        pass: gmailPassword
       }
     })
   );
@@ -241,3 +243,5 @@ exports.sendEmail = function(name, email, url) {
     }
   });
 };
+
+module.exports = sendForgotPasswordEmail
