@@ -187,11 +187,49 @@ const forgotPassword = async (req, res) => {
   }
 }
 
+/*
+ * ROUTE  - /api/v1/user/change-password?token
+ * METHOD - POST
+ * ACCESS - Public
+ * BODY   - { password }
+ * PARAMS - { token }
+ * DESC   - Change password for the user if token is verified.
+ */
+
+const changePassword = async(req, res) => {
+  const { password } = req.body
+  const { token } = req.query
+  
+  try {
+    const user = await User.findOne({ token })
+
+    if(!user) {
+      return res.status(400).json(errorResponse(constants.BAD_REQUEST))
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10)
+
+    user.password = hashedPassword
+
+    user.token = ""
+    user.forgotPasswordLocked = false
+
+    await user.save()
+
+    res.json(successResponse(constants.BASIC_MESSAGE))
+    
+  } catch (e) {
+    console.log('Error in change password: ', e)
+    res.status(500).json(errorResponse(constants.SERVER_ERROR))
+  }
+}
+
 
 
 module.exports = {
   register,
   login,
   getDetails,
-  forgotPassword
+  forgotPassword,
+  changePassword
 }

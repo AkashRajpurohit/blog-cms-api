@@ -11,6 +11,8 @@ module.exports = Object.freeze({
 
   UNAUTHORIZED: 'Unauthorized operation performed',
 
+  BAD_REQUEST: 'Cannot process this request',
+
   BASIC_MESSAGE: 'Operation successfull',
 
   SERVER_ERROR: 'Internal Server Error',

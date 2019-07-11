@@ -44,6 +44,7 @@
 * [x] User Forgot Password
   * [x] Lock user account
   * [x] Send email with token
+* [x] Change password and unlock the user's account. Invalidated all old tokens in this process
 * [ ] Allow user to hard delete any data (eg. Blog post)
 * [ ] Likes and comments on blog post
 
