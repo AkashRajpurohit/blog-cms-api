@@ -44,9 +44,13 @@
 * [x] User Forgot Password
   * [x] Lock user account
   * [x] Send email with token
-  ![Forgot Password Email](./assets/forgotpassword-email.jpeg)
 * [ ] Allow user to hard delete any data (eg. Blog post)
 * [ ] Likes and comments on blog post
+
+## Graphical Assets
+* Send Forgot Password Email
+  <br />
+  <img src="./assets/forgotpassword-email.jpeg" width=200 height=300 />
 
 ## Read the API Docs
 [Documentation](https://documenter.getpostman.com/view/4346639/S1TZzbts)
