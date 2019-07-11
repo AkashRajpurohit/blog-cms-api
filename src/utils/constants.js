@@ -18,4 +18,6 @@ module.exports = Object.freeze({
   VALIDATION_ERROR: 'Fields cannot be validated',
 
   ERROR_404: "Oops! Looks like you are trying to find that doesn't exist",
+
+  ACCOUNT_LOCKED: "Your account is locked"
 })

@@ -23,6 +23,14 @@ const UserSchema = new Schema(
       type: Number,
       default: 0,
     },
+    forgotPasswordLocked: {
+      type: Boolean,
+      default: false
+    },
+    token: {
+      type: String,
+      default: ''
+    }
   },
   { timestamps: true }
 )

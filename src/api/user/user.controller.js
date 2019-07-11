@@ -87,6 +87,11 @@ const login = async (req, res) => {
       return res.status(400).json(errorResponse(constants.AUTHENTICATION_ERROR))
     }
 
+    // check if user account is locked or not
+    if(user.forgotPasswordLocked) {
+      return res.status(401).json(errorResponse(constants.ACCOUNT_LOCKED))
+    }
+
     const passwordMatch = await bcrypt.compare(password, user.password)
 
     if (!passwordMatch) {
@@ -132,8 +137,50 @@ const getDetails = async (req, res) => {
   }
 }
 
+/*
+ * ROUTE  - /api/v1/user/forgot-password
+ * METHOD - POST
+ * ACCESS - Public
+ * BODY   - { usernameOrEmail }
+ * DESC   - User forgots his/her password and wishes to change the password.
+ * TODO   - Make sure the user account gets locked i.e allow no new logins until password is changed.
+ */
+
+const forgotPassword = async (req, res) => {
+  const { usernameOrEmail } = req.body
+
+  try {
+    const user = await User.findOne({
+      $or: [{ email: usernameOrEmail }, { username: usernameOrEmail }],
+    })
+
+    if(!user) {
+      return res.status(404).json(errorResponse(constants.ERROR_404))
+    }
+
+    // lock the user account
+    user.forgotPasswordLocked = true
+
+    // Increase the user count to invalidate all exisiting tokens
+    user.count = user.count + 1
+
+    await user.save()
+
+    // TODO: Send Email With Token
+
+    res.json(successResponse(constants.BASIC_MESSAGE))
+    
+  } catch (e) {
+    console.log('Error in forgot password: ', e)
+    res.status(500).json(errorResponse(constants.SERVER_ERROR))
+  }
+}
+
+
+
 module.exports = {
   register,
   login,
   getDetails,
+  forgotPassword
 }
