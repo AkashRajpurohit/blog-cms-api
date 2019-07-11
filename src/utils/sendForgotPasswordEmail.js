@@ -1,4 +1,4 @@
-const nodemailer = require("nodemailer");
+const { createTransport } = require("nodemailer");
 const smtpTransport = require("nodemailer-smtp-transport");
 
 const { gmailEmail, gmailPassword } = require('../config')
@@ -218,7 +218,7 @@ const sendForgotPasswordEmail = (name, email, url) => {
   `;
 
   // create reusable transporter object using the default SMTP transport
-  let transporter = nodemailer.createTransport(
+  let transporter = createTransport(
     smtpTransport({
       service: "gmail",
       host: "smtp.gmail.com",

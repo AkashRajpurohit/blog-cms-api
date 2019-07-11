@@ -5,7 +5,7 @@ const User = require('./user.model')
 const successResponse = require('../../utils/successResponse')
 const errorResponse = require('../../utils/errorResponse')
 
-const constants = require('../../utils/constants')
+const Constants = require('../../utils/constants')
 
 const registerValidator = require('../../helpers/validations/registerValidator')
 const loginValidator = require('../../helpers/validations/loginValidator')
@@ -28,7 +28,7 @@ const register = async (req, res) => {
   if (!isValid) {
     return res
       .status(400)
-      .json(errorResponse(constants.VALIDATION_ERROR, errors))
+      .json(errorResponse(Constants.VALIDATION_ERROR, errors))
   }
 
   const { username, email, password } = req.body
@@ -37,13 +37,13 @@ const register = async (req, res) => {
     const emailExists = await User.findOne({ email })
 
     if (emailExists) {
-      return res.status(400).json(errorResponse(constants.EMAIL_ALREADY_EXISTS))
+      return res.status(400).json(errorResponse(Constants.EMAIL_ALREADY_EXISTS))
     }
 
     const usernameTaken = await User.findOne({ username })
 
     if (usernameTaken) {
-      return res.status(400).json(errorResponse(constants.USERNAME_EXISTS))
+      return res.status(400).json(errorResponse(Constants.USERNAME_EXISTS))
     }
 
     // All ok - Hash password and save
@@ -57,10 +57,10 @@ const register = async (req, res) => {
 
     await newUser.save()
 
-    return res.json(successResponse(constants.BASIC_MESSAGE))
+    return res.json(successResponse(Constants.BASIC_MESSAGE))
   } catch (e) {
     console.log('Error in Registration: ', e)
-    res.status(500).json(errorResponse(constants.SERVER_ERROR))
+    res.status(500).json(errorResponse(Constants.SERVER_ERROR))
   }
 }
 
@@ -77,7 +77,7 @@ const login = async (req, res) => {
   if (!isValid) {
     return res
       .status(400)
-      .json(errorResponse(constants.VALIDATION_ERROR, errors))
+      .json(errorResponse(Constants.VALIDATION_ERROR, errors))
   }
 
   const { usernameOrEmail, password } = req.body
@@ -88,18 +88,18 @@ const login = async (req, res) => {
     })
 
     if (!user) {
-      return res.status(400).json(errorResponse(constants.AUTHENTICATION_ERROR))
+      return res.status(400).json(errorResponse(Constants.AUTHENTICATION_ERROR))
     }
 
     // check if user account is locked or not
     if(user.forgotPasswordLocked) {
-      return res.status(401).json(errorResponse(constants.ACCOUNT_LOCKED))
+      return res.status(401).json(errorResponse(Constants.ACCOUNT_LOCKED))
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password)
 
     if (!passwordMatch) {
-      return res.status(400).json(errorResponse(constants.AUTHENTICATION_ERROR))
+      return res.status(400).json(errorResponse(Constants.AUTHENTICATION_ERROR))
     }
 
     const { accessToken, refreshToken } = createTokens(user)
@@ -107,10 +107,10 @@ const login = async (req, res) => {
     res.cookie('access-token', accessToken)
     res.cookie('refresh-token', refreshToken)
 
-    res.json(successResponse(constants.BASIC_MESSAGE))
+    res.json(successResponse(Constants.BASIC_MESSAGE))
   } catch (e) {
     console.log('Error in Login: ', e)
-    res.status(500).json(errorResponse(constants.SERVER_ERROR))
+    res.status(500).json(errorResponse(Constants.SERVER_ERROR))
   }
 }
 
@@ -126,7 +126,7 @@ const getDetails = async (req, res) => {
     const user = await User.findById(req.userId)
 
     if (!user) {
-      return res.status(401).json(errorResponse(constants.UNAUTHORIZED))
+      return res.status(401).json(errorResponse(Constants.UNAUTHORIZED))
     }
 
     const userDetails = {
@@ -134,10 +134,10 @@ const getDetails = async (req, res) => {
       email: user.email,
     }
 
-    res.json(successResponse(constants.BASIC_MESSAGE, userDetails))
+    res.json(successResponse(Constants.BASIC_MESSAGE, userDetails))
   } catch (e) {
     console.log('Error in fetching details: ', e)
-    res.status(500).json(errorResponse(constants.SERVER_ERROR))
+    res.status(500).json(errorResponse(Constants.SERVER_ERROR))
   }
 }
 
@@ -159,7 +159,7 @@ const forgotPassword = async (req, res) => {
     })
 
     if(!user) {
-      return res.status(404).json(errorResponse(constants.ERROR_404))
+      return res.status(404).json(errorResponse(Constants.ERROR_404))
     }
 
     // lock the user account
@@ -179,11 +179,11 @@ const forgotPassword = async (req, res) => {
 
     await user.save()
 
-    res.json(successResponse(constants.BASIC_MESSAGE))
+    res.json(successResponse(Constants.BASIC_MESSAGE))
     
   } catch (e) {
     console.log('Error in forgot password: ', e)
-    res.status(500).json(errorResponse(constants.SERVER_ERROR))
+    res.status(500).json(errorResponse(Constants.SERVER_ERROR))
   }
 }
 
@@ -204,7 +204,7 @@ const changePassword = async(req, res) => {
     const user = await User.findOne({ token })
 
     if(!user) {
-      return res.status(400).json(errorResponse(constants.BAD_REQUEST))
+      return res.status(400).json(errorResponse(Constants.BAD_REQUEST))
     }
 
     const hashedPassword = await bcrypt.hash(password, 10)
@@ -216,11 +216,11 @@ const changePassword = async(req, res) => {
 
     await user.save()
 
-    res.json(successResponse(constants.BASIC_MESSAGE))
+    res.json(successResponse(Constants.BASIC_MESSAGE))
     
   } catch (e) {
     console.log('Error in change password: ', e)
-    res.status(500).json(errorResponse(constants.SERVER_ERROR))
+    res.status(500).json(errorResponse(Constants.SERVER_ERROR))
   }
 }
 

@@ -1,7 +1,7 @@
 const express = require('express')
 
 const commonMiddlewares = require('./middlewares')
-require('./helpers/dbConnection')
+require('./db/dbConnection')
 
 const routes = require('./routes')
 

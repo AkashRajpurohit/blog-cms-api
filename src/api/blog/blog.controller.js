@@ -4,7 +4,7 @@ const User = require('../user/user.model')
 const successResponse = require('../../utils/successResponse')
 const errorResponse = require('../../utils/errorResponse')
 
-const constants = require('../../utils/constants')
+const Constants = require('../../utils/constants')
 
 /*
  * ROUTE  - /api/v1/blog/
@@ -20,7 +20,7 @@ const addBlog = async (req, res) => {
     const userExists = await User.findById(req.userId)
 
     if (!userExists) {
-      return res.status(400).json(errorResponse(constants.UNAUTHORIZED))
+      return res.status(400).json(errorResponse(Constants.UNAUTHORIZED))
     }
 
     const blog = new Blog({
@@ -32,10 +32,10 @@ const addBlog = async (req, res) => {
 
     const newBlog = await blog.save()
 
-    res.json(successResponse(constants.BASIC_MESSAGE, newBlog))
+    res.json(successResponse(Constants.BASIC_MESSAGE, newBlog))
   } catch (e) {
     console.log('Error in Adding Blog: ', e)
-    res.status(500).json(errorResponse(constants.SERVER_ERROR))
+    res.status(500).json(errorResponse(Constants.SERVER_ERROR))
   }
 }
 
@@ -54,17 +54,17 @@ const editBlog = async (req, res) => {
     const userExists = await User.findById(req.userId)
 
     if (!userExists) {
-      return res.status(400).json(errorResponse(constants.UNAUTHORIZED))
+      return res.status(400).json(errorResponse(Constants.UNAUTHORIZED))
     }
 
     let blog = await Blog.findById(blog_id)
 
     if (!blog) {
-      return res.status(404).json(errorResponse(constants.ERROR_404))
+      return res.status(404).json(errorResponse(Constants.ERROR_404))
     }
 
     if (blog.author.toString() !== req.userId) {
-      return res.status(401).json(errorResponse(constants.UNAUTHORIZED))
+      return res.status(401).json(errorResponse(Constants.UNAUTHORIZED))
     }
 
     if (title) blog.title = title
@@ -73,10 +73,10 @@ const editBlog = async (req, res) => {
 
     const savedBlog = await blog.save()
 
-    res.json(successResponse(constants.BASIC_MESSAGE, savedBlog))
+    res.json(successResponse(Constants.BASIC_MESSAGE, savedBlog))
   } catch (e) {
     console.log('Error in Editing Blog: ', e)
-    res.status(500).json(errorResponse(constants.SERVER_ERROR))
+    res.status(500).json(errorResponse(Constants.SERVER_ERROR))
   }
 }
 
@@ -93,27 +93,27 @@ const deleteBlog = async (req, res) => {
     const userExists = await User.findById(req.userId)
 
     if (!userExists) {
-      return res.status(400).json(errorResponse(constants.UNAUTHORIZED))
+      return res.status(400).json(errorResponse(Constants.UNAUTHORIZED))
     }
 
     let blog = await Blog.findById(blog_id)
 
     if (!blog) {
-      return res.status(404).json(errorResponse(constants.ERROR_404))
+      return res.status(404).json(errorResponse(Constants.ERROR_404))
     }
 
     if (blog.author.toString() !== req.userId) {
-      return res.status(401).json(errorResponse(constants.UNAUTHORIZED))
+      return res.status(401).json(errorResponse(Constants.UNAUTHORIZED))
     }
 
     blog.active = !blog.active
 
     const savedBlog = await blog.save()
 
-    res.json(successResponse(constants.BASIC_MESSAGE, savedBlog))
+    res.json(successResponse(Constants.BASIC_MESSAGE, savedBlog))
   } catch (e) {
     console.log('Error in Editing Blog: ', e)
-    res.status(500).json(errorResponse(constants.SERVER_ERROR))
+    res.status(500).json(errorResponse(Constants.SERVER_ERROR))
   }
 }
 
@@ -129,7 +129,7 @@ const getBlogs = async (req, res) => {
     const userExists = await User.findById(req.userId)
 
     if (!userExists) {
-      return res.status(400).json(errorResponse(constants.UNAUTHORIZED))
+      return res.status(400).json(errorResponse(Constants.UNAUTHORIZED))
     }
 
     const blogs = await Blog.find({
@@ -138,13 +138,13 @@ const getBlogs = async (req, res) => {
     })
 
     if (!blogs) {
-      return res.status(404).json(errorResponse(constants.ERROR_404))
+      return res.status(404).json(errorResponse(Constants.ERROR_404))
     }
 
-    res.json(successResponse(constants.BASIC_MESSAGE, blogs))
+    res.json(successResponse(Constants.BASIC_MESSAGE, blogs))
   } catch (e) {
     console.log('Error in Fetching Blogs for single user: ', e)
-    res.status(500).json(errorResponse(constants.SERVER_ERROR))
+    res.status(500).json(errorResponse(Constants.SERVER_ERROR))
   }
 }
 
@@ -163,13 +163,13 @@ const getAllBlogs = async (req, res) => {
     }).populate('author', ['username', 'email'])
 
     if (!allBlogs) {
-      return res.status(404).json(errorResponse(constants.ERROR_404))
+      return res.status(404).json(errorResponse(Constants.ERROR_404))
     }
 
-    res.json(successResponse(constants.BASIC_MESSAGE, allBlogs))
+    res.json(successResponse(Constants.BASIC_MESSAGE, allBlogs))
   } catch (e) {
     console.log('Error in Fetching All Blogs : ', e)
-    res.status(500).json(errorResponse(constants.SERVER_ERROR))
+    res.status(500).json(errorResponse(Constants.SERVER_ERROR))
   }
 }
 

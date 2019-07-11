@@ -8,7 +8,7 @@ const errorResponse = require('../../utils/errorResponse')
 
 const registerValidator = require('../../helpers/validations/registerValidator')
 
-const constants = require('../../utils/constants')
+const Constants = require('../../utils/constants')
 
 /*
  * ROUTE  - /api/v1/admin/get-users
@@ -25,13 +25,13 @@ const getAllUsers = async (req, res) => {
     )
 
     if (!users) {
-      return res.status(404).json(errorResponse(constants.ERROR_404))
+      return res.status(404).json(errorResponse(Constants.ERROR_404))
     }
 
-    res.json(successResponse(constants.BASIC_MESSAGE, users))
+    res.json(successResponse(Constants.BASIC_MESSAGE, users))
   } catch (e) {
     console.log('Error in fetching details by admin: ', e)
-    res.status(500).json(errorResponse(constants.SERVER_ERROR))
+    res.status(500).json(errorResponse(Constants.SERVER_ERROR))
   }
 }
 
@@ -48,7 +48,7 @@ const deleteUser = async (req, res) => {
     const user = await User.findByIdAndDelete(user_id)
 
     if (!user) {
-      return res.status(404).json(errorResponse(constants.ERROR_404))
+      return res.status(404).json(errorResponse(Constants.ERROR_404))
     }
 
     if (req.body.blogs) {
@@ -61,10 +61,10 @@ const deleteUser = async (req, res) => {
       await Promise.all(promises)
     }
 
-    res.json(successResponse(constants.BASIC_MESSAGE))
+    res.json(successResponse(Constants.BASIC_MESSAGE))
   } catch (e) {
     console.log('Error in deleting user by admin: ', e)
-    res.status(500).json(errorResponse(constants.SERVER_ERROR))
+    res.status(500).json(errorResponse(Constants.SERVER_ERROR))
   }
 }
 
@@ -81,7 +81,7 @@ const createUser = async (req, res) => {
   if (!isValid) {
     return res
       .status(400)
-      .json(errorResponse(constants.VALIDATION_ERROR, errors))
+      .json(errorResponse(Constants.VALIDATION_ERROR, errors))
   }
 
   const { username, email, password, is_admin } = req.body
@@ -90,13 +90,13 @@ const createUser = async (req, res) => {
     const emailExists = await User.findOne({ email })
 
     if (emailExists) {
-      return res.status(400).json(errorResponse(constants.EMAIL_ALREADY_EXISTS))
+      return res.status(400).json(errorResponse(Constants.EMAIL_ALREADY_EXISTS))
     }
 
     const usernameTaken = await User.findOne({ username })
 
     if (usernameTaken) {
-      return res.status(400).json(errorResponse(constants.USERNAME_EXISTS))
+      return res.status(400).json(errorResponse(Constants.USERNAME_EXISTS))
     }
 
     // All ok - Hash password and save
@@ -111,10 +111,10 @@ const createUser = async (req, res) => {
 
     await newUser.save()
 
-    return res.json(successResponse(constants.BASIC_MESSAGE))
+    return res.json(successResponse(Constants.BASIC_MESSAGE))
   } catch (e) {
     console.log('Error in creating new user by admin: ', e)
-    res.status(500).json(errorResponse(constants.SERVER_ERROR))
+    res.status(500).json(errorResponse(Constants.SERVER_ERROR))
   }
 }
 
@@ -131,17 +131,17 @@ const changeUserToAdmin = async (req, res) => {
     const user = await User.findById(user_id)
 
     if (!user) {
-      return res.status(404).json(errorResponse(constants.ERROR_404))
+      return res.status(404).json(errorResponse(Constants.ERROR_404))
     }
 
     user.usertype = 'admin'
 
     await user.save()
 
-    res.json(successResponse(constants.BASIC_MESSAGE))
+    res.json(successResponse(Constants.BASIC_MESSAGE))
   } catch (e) {
     console.log('Error in changing user to admin: ', e)
-    res.status(500).json(errorResponse(constants.SERVER_ERROR))
+    res.status(500).json(errorResponse(Constants.SERVER_ERROR))
   }
 }
 
@@ -160,7 +160,7 @@ const editBlog = async (req, res) => {
     let blog = await Blog.findById(blog_id)
 
     if (!blog) {
-      return res.status(404).json(errorResponse(constants.ERROR_404))
+      return res.status(404).json(errorResponse(Constants.ERROR_404))
     }
 
     if (title) blog.title = title
@@ -170,10 +170,10 @@ const editBlog = async (req, res) => {
 
     const savedBlog = await blog.save()
 
-    res.json(successResponse(constants.BASIC_MESSAGE, savedBlog))
+    res.json(successResponse(Constants.BASIC_MESSAGE, savedBlog))
   } catch (e) {
     console.log('Error in Editing Blog by admin: ', e)
-    res.status(500).json(errorResponse(constants.SERVER_ERROR))
+    res.status(500).json(errorResponse(Constants.SERVER_ERROR))
   }
 }
 
@@ -190,17 +190,17 @@ const deleteBlog = async (req, res) => {
     let blog = await Blog.findById(blog_id)
 
     if (!blog) {
-      return res.status(404).json(errorResponse(constants.ERROR_404))
+      return res.status(404).json(errorResponse(Constants.ERROR_404))
     }
 
     blog.active = !blog.active
 
     const savedBlog = await blog.save()
 
-    res.json(successResponse(constants.BASIC_MESSAGE, savedBlog))
+    res.json(successResponse(Constants.BASIC_MESSAGE, savedBlog))
   } catch (e) {
     console.log('Error in Editing Blog: ', e)
-    res.status(500).json(errorResponse(constants.SERVER_ERROR))
+    res.status(500).json(errorResponse(Constants.SERVER_ERROR))
   }
 }
 
