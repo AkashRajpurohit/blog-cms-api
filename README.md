@@ -44,7 +44,7 @@
 * [x] User Forgot Password
   * [x] Lock user account
   * [x] Send email with token
-  ![Forgot Password Email](./assets/forgot-password-email.jpeg)
+  ![Forgot Password Email](./assets/forgotpassword-email.jpeg)
 * [ ] Allow user to hard delete any data (eg. Blog post)
 * [ ] Likes and comments on blog post
 
