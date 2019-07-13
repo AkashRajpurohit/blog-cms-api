@@ -58,3 +58,8 @@
 
 ## Deployed URL
 [blog-cms-api.herokuapp.com](https://blog-cms-api.herokuapp.com/)
+
+## Read the detailed Feedback given by Levin
+[Feedback](./FEEDBACK.md)
+
+> It was a really fun assignment to work on and Levin was a good mentor who helped me many times by giving advices on some logic or method of implementation of code. Overall I took many good things from this assignment and now publicly keeping it open source for anyone to use and add more features to it. 
