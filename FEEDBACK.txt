@@ -67,6 +67,12 @@
 [~] Rest looks alright, well done
 		
 [Summary:]
-You've done really well overall. The code is really clean, without a doubt the cleanest JavaScript code that has been submitted on the GarbageCollectors server so far, besides the mentioned points of course. I could tell straight away how much effort you put into this exercise. The repo looks really good and you've even made the effort to provide a full documentation for your API, along with other additional features that weren't strictly required for the assignment. The project structure looks fine too and my functionality tests of your API have passed.
+You've done really well overall. 
+The code is really clean, without a doubt the cleanest JavaScript code that has been submitted on the GarbageCollectors server so far, besides the mentioned points of course. 
+I could tell straight away how much effort you put into this exercise. 
+The repo looks really good and you've even made the effort to provide a full documentation for your API, along with other additional features that weren't strictly required for the assignment. 
+The project structure looks fine too and my functionality tests of your API have passed.
 
-And that brings us to a topic that I certainly want to address - Unit testing. Unit testing is an incredibly important part of software development, especially for backend services like this. I think that it would be a great next step for you to take a deep dive into some Node.js testing frameworks like Mocha.
+And that brings us to a topic that I certainly want to address - Unit testing. 
+Unit testing is an incredibly important part of software development, especially for backend services like this. 
+I think that it would be a great next step for you to take a deep dive into some Node.js testing frameworks like Mocha.
